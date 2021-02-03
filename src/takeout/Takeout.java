@@ -1,8 +1,8 @@
 package takeout;
 
 import java.util.Scanner;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.xml.bind.SchemaOutputResolver;
+
+
 
 
 public class Takeout {

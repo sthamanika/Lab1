@@ -2,67 +2,77 @@ package lab;
 
 import java.util.Scanner;
 
-public class BankAccount {
-        public String name;
-        public double balance;
-        public static int accNum = 100;
+public class BankAccount
+{
+
+        //instance variables
+        private String Name;
+        static int Num = 100;
+        private double iniBalance;
 
 
-        public BankAccount(String name)
+        public String getAccName() {
+                return Name;
+        }
+        public void setAccName(String accName) {
+                Name = accName;
+        }
+        public double getIniBalance() {
+                return iniBalance;
+        }
+        public void setIniBalance(double iniBalance) {
+                this.iniBalance = iniBalance;
+        }
+        BankAccount(String name, double balance)
         {
-                this.name = name;
-                balance = 0;
-                accNum++;
-
+                this.Name = name;
+                this.iniBalance = balance;
+                Num++;
         }
-
-        public BankAccount(String name, double balance)
+        BankAccount(String name)
         {
-                this.name = name;
-                this.balance = balance;
-                accNum++;
-
+                this.Name = name;
         }
-
-
-
-        public void deposit(double amount){
-                balance = balance + amount;
-
-        }
-
-        public void deposit(double amount, double interestRate)
+        public void withdrawFund(double amount)
         {
-                balance = balance + amount + (balance + interestRate / 100);
+                amount = iniBalance - amount;
+                System.out.printf("Your balance: $%.2f\n", amount);
         }
-
-        public void withdrawal(double amount)
+        public void withdrawFund(double amount, double fee)
         {
-                balance = balance - amount;
-
+                if(amount > iniBalance)
+                {
+                        fee = (fee / 100) * amount ;
+                        amount = iniBalance - amount - fee;
+                        System.out.printf("Sorry You Don't Have Enough Balance!\nand Your Balance is $%.2f", amount);
+                }
+                else
+                {
+                        withdrawFund(amount);
+                }
         }
-
-        public void withdrawal (double amount, double fee)
+        public void depositFund(double amount)
         {
-                balance = balance - amount- fee;
+                amount = iniBalance + amount ;
+                System.out.printf("Your balance: $%.2f\n", amount);
+        }
+        public void depositFund(double amount, double interest)
+        {
+                if(amount >= iniBalance)
+                {
+                        interest = (interest / 100) * amount ;
+                        amount = iniBalance + amount + interest;
+                        System.out.printf("With Interest your Balance is $%.2f", amount);
+                }
+                else
+                {
+                        depositFund(amount);
+                }
+        }
+        @Override
+        public String toString()
+        {
+                return String.format("\nName: %s\nAccount Number: %d", getAccName(), Num);
         }
 
-
-
-
-
-                        public void displayInfo()
-                        {
-                                System.out.println("Account name: " + name);
-                                System.out.println("Account Number: " + accNum);
-
-
-                        }
-                        public void displayBalance()
-                        {
-                                System.out.printf("Account Balance: %.3f\n", balance);
-                        }
 }
-
-
-
